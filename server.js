@@ -6,11 +6,19 @@ require("express-async-errors")
 const cors = require("cors")
 const mongoose = require("mongoose")
 const errorHandleMiddleware = require("./errors/error.middleware")
+const Constant = require("./utils/constants")
 
 app.use(express.json())
 app.use(cors())
 
 const PORT = process.env.PORT || 5000
+
+const UserRoute = require("./routes/user.route")
+const WeatherRoute = require("./routes/weatherData.route")
+
+app.use(Constant.API.PREFIX.concat("/user"), UserRoute)
+app.use(Constant.API.PREFIX.concat("/weather"), WeatherRoute)
+
 
 app.listen(PORT, () => {
     console.log(`Server is listening on port ${PORT}`)

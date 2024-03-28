@@ -26,15 +26,15 @@ const districts = [
     { name: 'Ratnapura', lat: 7.7162, lon: 81.6924 },
 ];
 
-// Function to generate random temperature (in Celsius) within a realistic range (e.g., 0°C to 40°C)
+// 0°C to 40°C
 function generateTemperature() {
     return Math.random() * 40;
 }
-// Function to generate random humidity (in percentage) within a realistic range (e.g., 20% to 90%)
+//20% to 90%
 function generateHumidity() {
     return Math.random() * (90 - 20) + 20;
 }
-// Function to generate random air pressure (in millibars) within a realistic range (e.g., 900mb to 1100mb)
+//900mb to 1100mb
 function generateAirPressure() {
     return Math.random() * (1100 - 900) + 900;
 }
@@ -49,18 +49,29 @@ function generateMockDataPoint(district) {
     };
 }
 
+let data = [];
+
 function emitDataPointEveryFiveMinutes() {
-    districts.forEach(district => {
-        setInterval(() => {
-            console.clear();
-            const dataPoint = generateMockDataPoint(district);
-            console.log(`Weather Station - ${district.name}:`, dataPoint);
-        }, 1 * 60 * 1000); // 5 minutes in milliseconds
+    const promises = districts.map(district => {
+        return new Promise((resolve, reject) => {
+            const dataPoints = [];
+            setInterval(() => {
+                const dataPoint = generateMockDataPoint(district);
+                dataPoints.push(dataPoint);
+            }, 1 * 60 * 1000);
+
+            setTimeout(() => {
+                resolve(dataPoints);
+            }, 1 * 60 * 1000);
+        });
     });
+
+    return Promise.all(promises)
+        .then(allDataPoints => {
+            // Flatten the array of arrays into a single array of data points
+            data = allDataPoints.flat();
+            return data;
+        });
 }
 
-// emitDataPointEveryFiveMinutes();
-// let array = []
-// array.push(emitDataPointEveryFiveMinutes())
-
-module.exports = emitDataPointEveryFiveMinutes()
+module.exports = emitDataPointEveryFiveMinutes;

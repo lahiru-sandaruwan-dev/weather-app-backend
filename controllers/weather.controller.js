@@ -6,14 +6,25 @@ const weatherService = require("../services/weather.service")
 const { StatusCodes } = require("http-status-codes")
 
 const getWeatherData = async (req, res) => {
-    emitDataPointEveryFiveMinutes()
+    let temp = []
+   await emitDataPointEveryFiveMinutes()
         .then(dataPoints => {
-            // console.log(dataPoints);
-            const weather = new weatherModel(dataPoints);
-            const updatedWeather = weatherService.SaveWeather(weather);
+            dataPoints.forEach((item)=>{
+                const weather = new weatherModel(item);
+                temp.push(weather)
+            })
             // return Response(res, StatusCodes.CREATED, true, "Update Successful", updatedWeather);
-            return Response(res, 201, true, "Success", updatedWeather)
         })
+
+        updatedWeather = []
+        for(i=0; i<temp.length-1; i++){
+         let data=   await weatherService.SaveWeather(temp[i])
+         updatedWeather.push(data)
+        }
+
+
+        return Response(res, 201, true, "Success", updatedWeather)
+
         .catch(error => {
             console.error('Error:', error);
         });

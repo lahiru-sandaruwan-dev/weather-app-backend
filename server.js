@@ -15,9 +15,16 @@ const PORT = process.env.PORT || 5000
 
 const UserRoute = require("./routes/user.route")
 const WeatherRoute = require("./routes/weatherData.route")
+const sendWetherDataToSubscriber = require("./utils/cornjob.util")
 
 app.use(Constant.API.PREFIX.concat("/user"), UserRoute)
 app.use(Constant.API.PREFIX.concat("/weather"), WeatherRoute)
+
+
+sendWetherDataToSubscriber()
+
+
+
 
 
 app.listen(PORT, () => {

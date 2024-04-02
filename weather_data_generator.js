@@ -74,4 +74,17 @@ function emitDataPointEveryFiveMinutes() {
         });
 }
 
-module.exports = emitDataPointEveryFiveMinutes;
+
+const testWeatherDataGenerateFunc = () => {
+    const dataPoints = [];
+
+    districts.map(district => {
+
+        const dataPoint = generateMockDataPoint(district);
+        dataPoints.push(dataPoint);
+    });
+
+    return dataPoints;
+}
+
+module.exports = { emitDataPointEveryFiveMinutes, testWeatherDataGenerateFunc };

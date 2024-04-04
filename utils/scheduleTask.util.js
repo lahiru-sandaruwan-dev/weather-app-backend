@@ -2,6 +2,7 @@ const scheduler = require("node-schedule");
 const { generateWeatherData } = require("../weather_data_generator");
 const weatherService = require("../services/weather.service");
 const { io } = require("../config/socket.config");
+const sequelize = require("../config/database.config");
 
 const scheduleTask = (cronTime, callback) => {
   scheduler.scheduleJob(cronTime, callback);
@@ -9,8 +10,6 @@ const scheduleTask = (cronTime, callback) => {
 
 const saveDataInDBTask = async () => {
   scheduleTask("*/10 * * * * *", async () => {
-    console.log("Appointment reminder cron job running...");
-    /**
     const weatherData = generateWeatherData();
 
     let newDataArr = [];
@@ -41,22 +40,11 @@ const saveDataInDBTask = async () => {
       await transaction.rollback();
       throw error;
     }
-     */
+
+    const dataToReturn = await weatherService.FindAllLatest();
+
+    io.emit("getWeatherData", dataToReturn);
   });
 };
 
-const sendWetherDataToSubscriber = () => {
-  // Schedule a cron job to run every 10 seconds => "*/10 * * * * *"
-  // Schedule a cron job to run every 5 minutes => "*/5 * * * *"
-
-  scheduleTask("*/10 * * * * *", async () => {
-    console.log("Appointment reminder cron job running...");
-
-    //const weatherData = await weatherService.FindAllLatest();
-
-    //  console.log(data);
-    //io.emit("getWeatherData", weatherData);
-  });
-};
-
-module.exports = { saveDataInDBTask, sendWetherDataToSubscriber };
+module.exports = { saveDataInDBTask };

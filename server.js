@@ -26,7 +26,6 @@ app.use(Constant.API.PREFIX.concat("/weather"), WeatherRoute);
 app.use(errorHandleMiddleware);
 
 saveDataInDBTask();
-sendWetherDataToSubscriber();
 
 const start = async () => {
     const port = process.env.PORT || 5000;

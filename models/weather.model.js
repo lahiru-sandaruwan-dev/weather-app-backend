@@ -1,22 +1,37 @@
-const mongoose = require("mongoose")
+const { DataTypes } = require("sequelize");
+const sequelize = require("../config/database.config");
 
-const WeatherModel = mongoose.Schema({
-    district: {
-        type: String
+const Weather = sequelize.define(
+    "Weather",
+    {
+        id: {
+            type: DataTypes.INTEGER,
+            autoIncrement: true,
+            primaryKey: true,
+        },
+        district: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        temperature: {
+            type: DataTypes.FLOAT,
+            allowNull: false,
+        },
+        humidity: {
+            type: DataTypes.FLOAT,
+            allowNull: false,
+        },
+        airPressure: {
+            type: DataTypes.FLOAT,
+            allowNull: false,
+        },
     },
-    temperature: {
-        type: Number
-    },
-    humidity: {
-        type: Number
-    },
-    airPressure: {
-        type: Number
-    },
-    timestamp: {
-        type: Date
-    },
+    {
+        freezeTableName: true,
+        timestamps: true,
+    }
+);
 
-})
+//Weather.sync({ force: true });
 
-module.exports = mongoose.model("Weather", WeatherModel)
+module.exports = Weather;

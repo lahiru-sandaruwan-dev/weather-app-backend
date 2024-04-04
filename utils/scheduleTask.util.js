@@ -9,7 +9,7 @@ const scheduleTask = (cronTime, callback) => {
 };
 
 const saveDataInDBTask = async () => {
-  scheduleTask("*/10 * * * * *", async () => {
+  scheduleTask("*/5 * * * *", async () => {
     const weatherData = generateWeatherData();
 
     let newDataArr = [];

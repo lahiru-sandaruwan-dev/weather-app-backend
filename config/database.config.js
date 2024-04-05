@@ -2,6 +2,11 @@ const Sequelize = require("sequelize");
 require("dotenv").config();
 
 //connect to ms sql server
+const sslOptions = {
+    // Set this to true if you want to reject unauthorized connections
+    rejectUnauthorized: false
+};
+
 const sequelize = new Sequelize(
     process.env.MYSQL_DB_NAME || "",
     process.env.MYSQL_DB_USER || "",
@@ -9,6 +14,9 @@ const sequelize = new Sequelize(
     {
         host: process.env.MYSQL_DB_HOST,
         dialect: "mysql",
+        dialectOptions: {
+            ssl: sslOptions
+        }
     }
 );
 

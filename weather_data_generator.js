@@ -20,7 +20,7 @@ const districts = [
     { name: "Ampara", lat: 7.2875, lon: 81.6739 },
     { name: "Mannar", lat: 8.977, lon: 79.909 },
     { name: "Mullaitivu", lat: 9.2675, lon: 80.7873 },
-    { name: "Batticaloa", lat: 7.7162, lon: 81.6924 },
+    { name: "Trincomalee", lat: 8.5879, lon: 81.2152 },
     { name: "Hambanthota", lat: 7.7162, lon: 81.6924 },
     { name: "Puttalam", lat: 7.7162, lon: 81.6924 },
     { name: "Ratnapura", lat: 7.7162, lon: 81.6924 },

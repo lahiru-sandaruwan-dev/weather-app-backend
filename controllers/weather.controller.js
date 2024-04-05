@@ -1,14 +1,14 @@
-const Response = require("../utils/response")
-const weatherData = require("../weather_data_generator")
+const { StatusCodes } = require("http-status-codes");
+const CustomResponse = require("../utils/response");
+const sequelize = require("../config/database.config");
+const weatherService = require("../services/weather.service");
 
-const getWeatherData = async (req, res) => {
-    let array = []
-    array.push(weatherData)
-    await console.log(array)
+const GetWeatherData = async (req, res) => {
+    const latestWeatherData = await weatherService.FindAllLatest();
 
-    return Response(res, 201, true, "Success", array)
-}
+    CustomResponse(res, StatusCodes.OK, true, "", latestWeatherData);
+};
 
 module.exports = {
-    getWeatherData
-}
+    GetWeatherData,
+};

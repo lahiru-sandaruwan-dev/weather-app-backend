@@ -20,7 +20,8 @@ app.use(express.urlencoded({ extended: true }));
 
 const PORT = process.env.PORT || 8080;
 
-app.use(Constant.API.PREFIX.concat("/weather"), WeatherRoute);
+// app.use(Constant.API.PREFIX.concat("/weather"), WeatherRoute);
+app.use("/api/weather", WeatherRoute);
 
 app.use(errorHandleMiddleware);
 

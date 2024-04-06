@@ -15,7 +15,8 @@ const sequelize = new Sequelize(
         host: process.env.MYSQL_DB_HOST,
         dialect: "mysql",
         dialectOptions: {
-            ssl: sslOptions
+            ssl: sslOptions,
+            connectTimeout: 60000
         }
     }
 );

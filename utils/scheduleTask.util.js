@@ -2,7 +2,7 @@ const scheduler = require("node-schedule");
 const { generateWeatherData } = require("../weather_data_generator");
 const weatherService = require("../services/weather.service");
 const { io } = require("../config/socket.config");
-const sequelize = require("../config/database.config");
+const sequelize = require("../config/database.config"); v
 
 const scheduleTask = (cronTime, callback) => {
   scheduler.scheduleJob(cronTime, callback);

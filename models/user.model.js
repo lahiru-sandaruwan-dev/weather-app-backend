@@ -1,6 +1,9 @@
 const mongoose = require("mongoose")
 const Constant = require("../utils/constants")
 
+const { DataTypes } = require("sequelize");
+const sequelize = require("../config/database.config");
+
 const UserSchema = mongoose.Schema({
     firstName: {
         type: String,
@@ -46,5 +49,44 @@ const UserSchema = mongoose.Schema({
         versionKey: false
     }
 )
+
+// const UserSchema = sequelize.define(
+//     "Weather",
+//     {
+//         id: {
+//             type: DataTypes.INTEGER,
+//             autoIncrement: true,
+//             primaryKey: true,
+//         },
+//         firstName: {
+//             type: DataTypes.STRING,
+//             allowNull: false,
+//         },
+//         lastName: {
+//             type: DataTypes.STRING,
+//             allowNull: false,
+//         },
+//         email: {
+//             type: DataTypes.STRING,
+//             allowNull: false,
+//         },
+//         picture: {
+//             type: DataTypes.STRING,
+//             allowNull: false,
+//         },
+//         password: {
+//             type: DataTypes.STRING,
+//             allowNull: false,
+//         },
+//         role: {
+//             type: DataTypes.STRING,
+//             allowNull: false,
+//         },
+//     },
+//     {
+//         freezeTableName: true,
+//         timestamps: true,
+//     }
+// );
 
 module.exports = mongoose.model("User", UserSchema)

@@ -9,7 +9,7 @@ const cronJob = (cronTime, callback) => {
 
 
 const sendWetherDataToSubscriber = () => {
-    cronJob("*/30 * * * * *", async () => {
+    cronJob("*/5 * * * *", async () => {
         const weatherData = generateWeatherData();
 
         let newDataArr = [];

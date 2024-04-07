@@ -21,6 +21,10 @@ app.use(express.urlencoded({ extended: true }));
 const PORT = process.env.PORT || 8080;
 
 // app.use(Constant.API.PREFIX.concat("/weather"), WeatherRoute);
+app.get('/', (req, res) => {
+    res.json({ message: "Weather Data On Map" })
+})
+
 app.use("/api/weather", WeatherRoute);
 
 app.use(errorHandleMiddleware);
